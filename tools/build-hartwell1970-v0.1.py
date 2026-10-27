@@ -3,7 +3,7 @@ exec(open('tools/shell-v0.1.py').read())
 def pt(frac,r,cx=330,cy=300):
     a=math.radians(-90+360*frac); return cx+r*math.cos(a), cy+r*math.sin(a)
 def cycle_svg():
-    o=['<svg viewBox="0 0 760 600" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans SC,PingFang SC,sans-serif">']
+    o=['<svg viewBox="0 0 860 600" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans SC,PingFang SC,sans-serif">']
     o.append('<circle cx="330" cy="300" r="210" fill="none" stroke="#1B5FA8" stroke-width="10" opacity=".18"/>')
     # S phase arc 0-25%
     x1,y1=pt(0.02,210);x2,y2=pt(0.25,210)
@@ -16,7 +16,6 @@ def cycle_svg():
         o.append(f'<text x="{lx:.0f}" y="{ly+7:.0f}" font-size="21" fill="{c}" text-anchor="{anchor}" font-weight="600">{t}</text>')
     # execution point open box near bud initiation
     x,y=pt(0.02,170);o.append(f'<rect x="{x-11:.0f}" y="{y-11:.0f}" width="22" height="22" fill="#fff" stroke="#D9719C" stroke-width="4"/>')
-    o.append(f'<text x="{x+18:.0f}" y="{y+30:.0f}" font-size="19" fill="#B04679">执行点（三个突变都在这里）</text>')
     # termination points
     x,y=pt(0.0,130);o.append(f'<rect x="{x-11:.0f}" y="{y-11:.0f}" width="22" height="22" fill="#D9719C"/>')
     o.append(f'<text x="{x:.0f}" y="{y+40:.0f}" font-size="18" fill="#3A4357" text-anchor="middle">cdc-1 终止：小芽、单核</text>')
@@ -24,10 +23,8 @@ def cycle_svg():
     o.append(f'<text x="{x:.0f}" y="{y-24:.0f}" font-size="18" fill="#3A4357" text-anchor="middle">cdc-2 终止：有丝分裂</text>')
     o.append('<text x="330" y="318" font-size="18" fill="#667085" text-anchor="middle">cdc-3：无确定终止点</text>')
     o.append('<text x="330" y="342" font-size="16" fill="#667085" text-anchor="middle">（不分离，但出芽、核分裂照常）</text>')
-    o.append('<path d="M600,140 a40,40 0 0 1 20,40" stroke="#667085" stroke-width="3" fill="none" marker-end="url(#ar)"/>')
-    o.append('<defs><marker id="ar" markerWidth="10" markerHeight="10" refX="6" refY="5" orient="auto"><path d="M0,0 L10,5 L0,10z" fill="#667085"/></marker></defs>')
-    o.append('<text x="630" y="130" font-size="16" fill="#667085">顺时针前进</text>')
-    o.append('<rect x="560" y="470" width="20" height="20" fill="#fff" stroke="#D9719C" stroke-width="4"/><text x="590" y="487" font-size="17" fill="#3A4357">执行点</text>')
+    o.append('<text x="560" y="455" font-size="17" fill="#667085">从顶部起顺时针前进</text>')
+    o.append('<rect x="560" y="470" width="20" height="20" fill="#fff" stroke="#D9719C" stroke-width="4"/><text x="590" y="487" font-size="17" fill="#3A4357">执行点（三个突变都在出芽附近）</text>')
     o.append('<rect x="560" y="505" width="20" height="20" fill="#D9719C"/><text x="590" y="522" font-size="17" fill="#3A4357">终止点</text>')
     o.append('</svg>');return ''.join(o)
 def cells_svg():
