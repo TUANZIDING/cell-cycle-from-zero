@@ -167,7 +167,7 @@ P.append(('本周安排','安排','''<div class="hd"><div class="kick"><span cla
 <div style="display:flex;flex-direction:column;gap:18px">
 <div class="card box" data-b="2"><h3><span class="tag he">周六 2 h</span></h3><p>文献 01：Hartwell 1970 拆解页。读原文 Fig. 1–2，对照拆解页自己先说结论。</p></div>
 <div class="card box" data-b="3"><h3><span class="tag eo">周日 1 h</span></h3><p>写一段“讲给实习生听”的总地图，再做第 09 页自测。卡住的地方就是下周要补的。</p></div>
-<div class="card box" data-b="4"><h3><span class="tag ok">卡片</span></h3><p>30 个术语 + 5 道问答已做成 Anki 卡组：<a href="../cards/u00-map-anki-v0.1.txt">下载</a>，Anki 里“文件 → 导入”即可，按 1、3、7、14 天间隔复习。</p></div></div></div>'''))
+<div class="card box" data-b="4"><h3><span class="tag ok">卡片</span></h3><p>30 个术语 + 6 道问答已做成 Anki 卡组：<a href="../cards/u00-map-anki-v0.1.txt">下载</a>，Anki 里“文件 → 导入”即可，按 1、3、7、14 天间隔复习。</p></div></div></div>'''))
 P.append(('费曼与自测','自测','''<div class="dense"><div class="hd"><div class="kick"><span class="no">09</span>周日 · 费曼输出 + 自测</div><h2 class="t">讲得出来才算懂；卡住的地方就是下周要补的地方</h2></div>
 <div class="g2" style="grid-template-columns:1fr 1.3fr">
 <div class="card box" data-b="1"><h3><span class="tag eo">费曼开头</span></h3><p class="feyn">细胞想分裂，就要先把 DNA 抄一遍再平分。整个过程靠一台叫 CDK 的发动机推着走，路上有三个安检站。辐射把 DNA 打断后，安检站会把细胞拦下来修……</p><p style="margin-top:12px">接着往下写，写到肌肉为止。需要用术语糊弄过去的地方标红，下周查。</p></div>
