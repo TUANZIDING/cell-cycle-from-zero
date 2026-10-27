@@ -48,7 +48,7 @@ def card_html(k):
 <div class="ic">{icon(k['no'], k['c'], k['l'])}</div>
 <div class="kind">{html.escape(k['kind'])}</div><div class="main">{html.escape(k['main'])}</div>{sub}
 <div class="hint">点击翻面 ↻</div></div>
-<div class="face back"><div class="top"><span class="chip">{html.escape(k['main'][:22])}</span>{spec}</div>
+<div class="face back"><div class="top"><span class="chip">{html.escape(k['main'][:22] if not q else k['kind'])}</span>{spec}</div>
 <div class="ans">{k['back']}</div>
 <div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div>'''
 
@@ -73,8 +73,9 @@ h1{{font-family:var(--serif);font-size:46px;margin:28px 0 8px}}h1 em{{font-style
 .bar .f{{border-left:5px solid var(--c)}}.bar .f i{{font-style:normal;margin-left:6px;color:var(--mute);font-size:13px}}
 .bar .f.on{{background:var(--l);color:var(--c);font-weight:700}}
 .bar .sp{{flex:1}}.bar .act.on{{background:var(--ink);color:#fff}}
-#prog{{font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums}}
+#prog{{white-space:nowrap;font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums}}
 .grid{{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}}
+.fc.q{{grid-column:span 2;height:400px}}
 .fc{{height:360px;perspective:1400px;cursor:pointer;outline:none}}
 .fc .in{{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d}}
 .fc.flip .in{{transform:rotateY(180deg)}}
@@ -92,10 +93,10 @@ background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--glassb
 .q .main{{font-size:22px;line-height:1.45}}
 .sub{{margin-top:8px;font-size:15px;line-height:1.5;color:var(--ink2)}}
 .hint{{margin-top:auto;font-size:13px;color:var(--mute)}}
-.ans{{margin-top:14px;font-size:16.5px;line-height:1.75;color:var(--ink);overflow:auto}}
+.ans{{flex:1 1 auto;min-height:0;margin-top:14px;font-size:16.5px;line-height:1.75;color:var(--ink);overflow:auto}}
 .ans b{{color:var(--c)}}.q .ans{{font-size:15px;line-height:1.7}}
 .spec{{font-size:12px;font-weight:700;color:#9A5B12;background:#FCEFD9;padding:2px 8px;border-radius:12px}}
-.bot{{margin-top:auto;padding-top:10px;display:flex;justify-content:space-between;align-items:center}}
+.bot{{flex-shrink:0;margin-top:auto;padding-top:10px;display:flex;justify-content:space-between;align-items:center}}
 .ok{{font-size:14px;padding:5px 12px;border-radius:20px;background:#fff;border:1px solid var(--line)}}
 .fc.done .ok{{background:var(--ok);color:#fff}}
 .fc.done .front::after{{content:"✓ 已掌握";position:absolute;right:18px;bottom:16px;font-size:13px;font-weight:700;color:var(--ok)}}
@@ -108,7 +109,9 @@ background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--glassb
 #focus .nav{{display:flex;gap:12px;align-items:center;font-size:15px;color:var(--ink2)}}
 #focus .nav button{{padding:8px 16px;border-radius:30px;background:#fff;border:1px solid var(--line)}}
 .foot{{margin-top:44px;font-size:14px;color:var(--mute);line-height:1.7}}
+@media(max-width:680px){{.fc.q{{grid-column:auto;height:460px}}}}
 @media print{{
+ .fc.q{{grid-column:auto}}
  .bar,#focus,.topbar,.hint,.ok{{display:none!important}}html,body{{background:#fff}}body::before{{display:none}}
  .grid{{grid-template-columns:1fr 1fr;gap:10px}}.fc{{height:auto;break-inside:avoid;perspective:none}}
  .fc .in{{transform:none!important;display:grid;grid-template-columns:1fr 1.5fr}}
