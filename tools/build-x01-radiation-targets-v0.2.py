@@ -101,7 +101,7 @@ P=[]
 P.append(('封面','封面',f'''<div class="cover-ttl"><div class="k">补充单元 X01 · 承接 U00 的一个问题</div>
 <h1>辐射到底<br><em class="hl">打中了什么？</em></h1>
 <div class="sub">DNA 是主靶，但不是唯一靶点</div>
-<div class="meta">约 2 × 45 分钟 · 读完能回答：辐射是不是“只靠打断 DNA”伤害细胞<br>文献 11 篇，均经 PubMed 核对</div></div>
+<div class="meta">约 2 × 45 分钟 · 读完能回答：辐射是不是“只靠打断 DNA”伤害细胞<br>文献 12 篇，均经 PubMed 核对</div></div>
 <div class="cover-chips"><div><b>1 个主靶</b>细胞核 DNA，尤其双链断裂</div><div><b>3 条旁路</b>细胞膜、线粒体、旁观者效应</div><div><b>2 条线</b>研究骨骼肌照射损伤的拆法</div></div>
 <div class="cover-eye"><img src="{FIG}x01-cover-v0.1.jpg" alt="射线穿过细胞、打断 DNA"><span class="lab">AI 生成示意图 · 射线穿过细胞</span></div>'''))
 P.append(('一句话结论','结论',f'''<div class="hd"><div class="kick"><span class="no">01</span>先说结论</div><h2 class="t">“会不会死、还能不能分裂”主要看 DNA；“功能怎么变”还要看膜、线粒体和邻居</h2></div>
