@@ -4,7 +4,7 @@ FIG='../figures/'
 def map_svg():
     p='mp'
     o=[f'<svg viewBox="0 0 1660 430" width="100%" font-family="Noto Sans SC,PingFang SC,sans-serif">',defs(p)]
-    cards=[(20,'细胞周期','G1 → S → G2 → M',BLUE,'#EAF2FB'),(440,'DNA 损伤应答','感受 → 传递 → 执行',HE,'#F3EEFA'),(860,'细胞命运','恢复 · 衰老 · 凋亡 · 灾难',EO,'#FDECF3'),(1280,'骨骼肌修复','卫星细胞 · FAP · 巨噬',OK,'#E3F4EC')]
+    cards=[(20,'细胞周期','G1 → S → G2 → M',BLUE,'#EAF2FB'),(440,'DNA 损伤应答','感受 → 传递 → 执行',HE,'#F3EEFA'),(860,'细胞命运','停顿后的五种结局',EO,'#FDECF3'),(1280,'骨骼肌修复','卫星细胞 · FAP · 巨噬',OK,'#E3F4EC')]
     for i,(x,t,s,c,bg) in enumerate(cards):
         o.append(f'<rect x="{x}" y="140" width="360" height="190" rx="28" fill="{bg}" stroke="{c}" stroke-width="2.5" filter="url(#{p}sh)"/>')
         o.append(f'<circle cx="{x+70}" cy="235" r="44" fill="#fff" stroke="{c}" stroke-width="2"/>')
