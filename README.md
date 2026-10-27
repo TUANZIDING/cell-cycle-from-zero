@@ -2,7 +2,7 @@
 
 面向初学者的中文学习库：从细胞分裂周期出发，经 DNA 损伤应答、细胞命运，走到照射后骨骼肌的修复。
 
-- **在线阅读**：开启 GitHub Pages 后访问 `https://tuanziding.github.io/cell-cycle-from-zero/`
+- **在线阅读**：<https://tuanziding.github.io/cell-cycle-from-zero/>（U00 思维卡片：<https://tuanziding.github.io/cell-cycle-from-zero/cards/u00-cards-v0.1.html>）
 - **本地阅读**：直接用浏览器打开 `index.html`
 - **操作**：←/→ 翻页，T 目录，R 切换阅读模式（手机默认阅读模式）
 
