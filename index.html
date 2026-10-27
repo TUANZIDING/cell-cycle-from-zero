@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>细胞周期从零学 · 个人网页学习库</title>
+<link rel="stylesheet" href="assets/deck-v0.1.css">
+<style>
+html,body{overflow:auto;height:auto;background:var(--bg)}
+.wrap{max-width:1240px;margin:0 auto;padding:48px 28px 80px}
+.top{display:flex;align-items:center;gap:14px;color:var(--ink2);font-size:18px}
+.top .dot{width:34px;height:34px;border-radius:50%;border:2px solid var(--blue);position:relative}
+.top .dot::after{content:"";position:absolute;inset:8px;border-radius:50%;background:var(--eo)}
+h1{font-family:var(--serif);font-size:54px;line-height:1.2;margin:34px 0 14px}h1 em{font-style:normal;color:var(--eo)}
+.intro{font-size:19px;line-height:1.7;color:var(--ink2);max-width:900px}
+h2.s{font-family:var(--serif);font-size:30px;margin:48px 0 18px;display:flex;align-items:center;gap:12px}
+h2.s .no{color:var(--eo);font-size:22px}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:18px}
+a.u{display:block;text-decoration:none;color:inherit;padding:22px;transition:.2s}
+a.u:hover{transform:translateY(-3px)}
+.u .w{font-size:14px;letter-spacing:.12em;color:var(--blue);font-weight:700}
+.u h3{font-family:var(--serif);font-size:23px;margin:8px 0 6px;line-height:1.35}
+.u p{font-size:16px;line-height:1.6;color:var(--ink2)}
+.u.off{opacity:.55;pointer-events:none}
+.st{display:inline-block;margin-top:10px;font-size:13px;font-weight:700;padding:2px 10px;border-radius:20px}
+.st.done{background:#E3F4EC;color:#1E6E52}.st.todo{background:#EEF1F5;color:var(--mute)}
+table.t{font-size:16px}.box p,.box li{font-size:17px}
+.foot{margin-top:56px;font-size:14px;color:var(--mute);line-height:1.7}
+</style></head><body>
+<div class="wrap">
+<div class="top"><span class="dot"></span><b style="font-family:var(--serif);color:var(--blue)">细胞周期从零学</b><span>· cell-cycle-from-zero</span></div>
+<h1>从细胞分裂，<br>走到<em>照射后的肌肉修复</em></h1>
+<p class="intro">一个面向初学者的中文学习库：每个单元是一套可翻页、也可切换为阅读模式的网页笔记（←/→ 翻页，T 目录，R 阅读模式）。图均为自绘示意；“事实 / 关联 / 推测”分开标注；文献信息经 PubMed 核对。</p>
+
+<h2 class="s"><span class="no">01</span>学习单元</h2>
+<div class="grid">
+<a class="u card" href="units/u00-map-v0.1.html"><div class="w">第 1 周 · U00</div><h3>总地图</h3><p>细胞周期 → DNA 损伤应答 → 细胞命运 → 骨骼肌修复；30 个核心术语。</p><span class="st done">已上线</span></a>
+<div class="u card off"><div class="w">第 2–5 周 · U01–U04</div><h3>细胞周期骨架</h3><p>G1/S/G2/M、CDK–cyclin 网络、APC/C、三个检查点。</p><span class="st todo">待写</span></div>
+<div class="u card off"><div class="w">第 6–8 周 · U05–U07</div><h3>DNA 损伤应答与细胞命运</h3><p>ATM/ATR、HR/NHEJ 与周期时相、衰老、凋亡、有丝分裂灾难。</p><span class="st todo">待写</span></div>
+<div class="u card off"><div class="w">第 9–12 周 · U08–U11</div><h3>辐射与骨骼肌（问题导向）</h3><p>卫星细胞静息与激活、p21 与衰老、微环境；产出一张机制图。</p><span class="st todo">待写</span></div>
+</div>
+
+<h2 class="s"><span class="no">02</span>经典文献拆解</h2>
+<div class="grid">
+<a class="u card" href="papers/p01-hartwell1970-cdc-mutants-v0.1.html"><div class="w">第 1 站 · PNAS 1970</div><h3>Hartwell：用温度开关找出 cdc 基因</h3><p>执行点与终止点；细胞周期遗传学的起点。</p><span class="st done">已上线</span></a>
+<div class="u card off"><div class="w">第 2 站 · J Exp Zool 1971</div><h3>Masui & Markert：MPF</h3><p>卵母细胞胞质里的“成熟因子”。</p><span class="st todo">待写</span></div>
+<div class="u card off"><div class="w">第 3 站 · Science 1974</div><h3>Hartwell：Start 与事件顺序</h3><p>用 cdc 突变排出周期的依赖关系。</p><span class="st todo">待写</span></div>
+<div class="u card off"><div class="w">第 4 站 · PNAS 1974</div><h3>Pardee：限制点</h3><p>哺乳动物细胞何时“下决心”分裂。</p><span class="st todo">待写</span></div>
+</div>
+<p class="intro" style="margin-top:14px;font-size:16px">完整 22 站阅读路线（含 PMID、DOI、开放获取情况）见 <a href="docs/resources-v0.1.md">docs/resources-v0.1.md</a>。</p>
+
+<h2 class="s"><span class="no">03</span>12 周节奏</h2>
+<div class="card box"><table class="t">
+<tr><th style="width:18%">时间</th><th>做什么</th><th style="width:26%">学习法</th></tr>
+<tr><td>工作日 45 分钟</td><td>读 25 分钟 → 合上回忆 10 分钟 → 卡片复习 10 分钟</td><td>提取练习 + 间隔复习</td></tr>
+<tr><td>周六 2 小时</td><td>拆解一篇经典文献</td><td>问题导向</td></tr>
+<tr><td>周日 1 小时</td><td>“讲给实习生听” + 周测</td><td>费曼 + 布鲁姆层级验收</td></tr></table></div>
+
+<p class="foot">内容（笔记、自绘图）采用 CC BY 4.0，代码采用 MIT。本库不收录出版社 PDF、论文原图或教材截图；引用的图均为据原文重绘的示意。<br>维护：Haixiang Ding · 起始于 2026 年 10 月</p>
+</div></body></html>
