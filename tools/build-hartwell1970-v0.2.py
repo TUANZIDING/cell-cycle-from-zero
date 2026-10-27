@@ -3,7 +3,7 @@ FIG='../figures/'
 def timeline_svg():
     p='tl'
     X={'bud':330,'dna':560,'mit':960,'sep':1350}
-    o=[f'<svg viewBox="0 0 1680 460" width="100%" font-family="Noto Sans SC,PingFang SC,sans-serif">',defs(p)]
+    o=[f'<svg viewBox="0 0 1680 500" style="max-height:430px;display:block;margin:auto" width="100%" font-family="Noto Sans SC,PingFang SC,sans-serif">',defs(p)]
     # 顶部周期轨道
     o.append(f'<rect x="200" y="148" width="1360" height="14" rx="7" fill="{BLUE3}"/>')
     o.append(f'<rect x="{X["bud"]}" y="148" width="{X["dna"]-X["bud"]+60}" height="14" rx="7" fill="{BLUE2}" opacity=".55"/>')
@@ -17,7 +17,7 @@ def timeline_svg():
     o.append(f'<text x="200" y="128" font-size="17" fill="{MUTE}">一个细胞周期（芽殖酵母，示意）→</text>')
     lanes=[('cdc-1','369D-1',X['bud'],'停在执行点：小芽、单核',EO,False),('cdc-2','370D-1',X['mit'],'停在有丝分裂：等大双联体，核卡在颈部',HE,False),('cdc-3','104D-1',X['sep'],'不分离，但出芽、核分裂继续 → 无确定终止点',WARN,True)]
     for i,(g,st,tx,desc,c,open_) in enumerate(lanes):
-        y=300+i*100
+        y=272+i*84
         o.append(f'<rect x="20" y="{y-38}" width="1640" height="76" rx="22" fill="url(#{p}card)" stroke="#E3E9F2" filter="url(#{p}sh)"/>')
         o.append(f'<text x="50" y="{y-4}" font-size="26" font-weight="700" fill="{c}" font-style="italic">{g}</text>')
         o.append(f'<text x="50" y="{y+22}" font-size="16" fill="{MUTE}">{st}</text>')
@@ -119,8 +119,8 @@ P.append(('执行点怎么判断','逻辑',f'''<div class="hd"><div class="kick"
 <div class="pt eo"><h4>cdc-1 的原文观察</h4><p>升温后 1 h 内新出的少数芽还能长大，之后出的芽都停在小芽。</p></div>
 <div class="pt ok"><h4>作者的一般化</h4><p>“更靠前的细胞比更靠后的细胞少走一圈”——这个判据适用于任何只在一个阶段起作用的基因。</p></div></div></div>'''))
 P.append(('Fig. 1–2 延时摄影','Fig 1–2',f'''<div class="hd"><div class="kick"><span class="no">06</span>逐图解读 · 原文 Fig. 1–2</div><h2 class="t">芽的大小就是周期时钟；三个突变株在 36 °C 下各自停成一种形状</h2></div>
-<div class="card box" data-b="1" style="padding:16px 20px"><div class="pinwrap"><img src="{FIG}yeast-stages-v0.1.jpg" alt="出芽周期示意"></div>
-<div class="steps"><div><b>无芽</b>G1</div><div><b>小芽</b>出芽起始 · <i>cdc-1</i> 停这里</div><div><b>中芽</b>核移向颈部</div><div><b>大芽 · 核在颈部</b><i>cdc-2</i> 停这里</div><div><b>分离</b><i>cdc-3</i> 过不去</div></div>
+<div class="card box" data-b="1" style="padding:16px 20px"><div class="pinwrap" style="max-width:1080px;margin:auto"><img src="{FIG}yeast-stages-v0.1.jpg" alt="出芽周期示意"></div>
+<div class="steps" style="max-width:1180px;margin:8px auto 0"><div><b>无芽</b>G1</div><div><b>小芽</b>出芽起始 · <i>cdc-1</i> 停这里</div><div><b>中芽</b>核移向颈部</div><div><b>大芽 · 核在颈部</b><i>cdc-2</i> 停这里</div><div><b>分离</b><i>cdc-3</i> 过不去</div></div>
 <p class="cap">AI 生成的出芽周期示意，非原文照片；原文 Fig. 1–2 为延时显微照片，见 PMC 全文。</p></div>
 <div class="g3" style="margin-top:20px">
 <div class="card box" data-b="2"><h3><i>cdc-1</i></h3><p>已有芽的细胞把芽养大；之后新出的芽全部停在小芽。→ 出芽前有一步必须在许可温度下完成。</p></div>
