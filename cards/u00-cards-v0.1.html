@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U00 思维卡片 · 细胞周期从零学</title>
+<link rel="stylesheet" href="../assets/deck-v0.2.css">
+<style>
+html,body{overflow:auto;height:auto;background:radial-gradient(1200px 700px at 85% -10%,rgba(63,139,214,.10),transparent 60%),radial-gradient(900px 600px at -5% 105%,rgba(217,113,156,.09),transparent 60%),var(--bg)}
+body::before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.45;background-image:radial-gradient(rgba(27,95,168,.10) 1px,transparent 1.2px);background-size:28px 28px}
+.wrap{position:relative;max-width:1320px;margin:0 auto;padding:40px 28px 80px}
+.topbar{display:flex;align-items:center;gap:14px;color:var(--ink2);font-size:17px}
+.topbar a{color:var(--blue);text-decoration:none}
+.topbar .dot{width:32px;height:32px;border-radius:50%;border:2px solid var(--blue);position:relative}
+.topbar .dot::after{content:"";position:absolute;inset:7px;border-radius:50%;background:var(--eo)}
+h1{font-family:var(--serif);font-size:46px;margin:28px 0 8px}h1 em{font-style:normal;color:var(--eo)}
+.intro{font-size:17px;line-height:1.7;color:var(--ink2);max-width:880px}
+.bar{position:sticky;top:0;z-index:20;margin:24px -12px 22px;padding:12px;border-radius:18px;background:rgba(246,245,241,.86);backdrop-filter:blur(14px);display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.bar button{padding:7px 14px;border-radius:30px;font-size:15px;background:var(--glass);border:1px solid var(--glassb);box-shadow:0 2px 8px rgba(28,40,80,.06)}
+.bar .f{border-left:5px solid var(--c)}.bar .f i{font-style:normal;margin-left:6px;color:var(--mute);font-size:13px}
+.bar .f.on{background:var(--l);color:var(--c);font-weight:700}
+.bar .sp{flex:1}.bar .act.on{background:var(--ink);color:#fff}
+#prog{font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums}
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+.fc{height:360px;perspective:1400px;cursor:pointer;outline:none}
+.fc .in{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d}
+.fc.flip .in{transform:rotateY(180deg)}
+.face{position:absolute;inset:0;border-radius:22px;padding:20px 22px;backface-visibility:hidden;-webkit-backface-visibility:hidden;display:flex;flex-direction:column;
+background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--glassb);box-shadow:var(--sh);overflow:hidden}
+.face::before{content:"";position:absolute;left:0;top:0;right:0;height:6px;background:linear-gradient(90deg,var(--c),transparent)}
+.front{background:radial-gradient(260px 200px at 100% 0%,var(--l),transparent 70%),var(--glass)}
+.back{transform:rotateY(180deg);background:linear-gradient(180deg,var(--l),rgba(255,255,255,.85) 38%)}
+.top{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.chip{font-size:13px;font-weight:700;letter-spacing:.06em;color:var(--c);background:#fff;padding:3px 10px;border-radius:20px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.num{font-family:var(--serif);color:var(--mute);font-size:15px}
+.ic{width:76px;height:76px;margin:22px 0 10px}.ic svg{width:100%;height:100%}
+.kind{font-size:13px;letter-spacing:.2em;color:var(--mute)}
+.main{font-family:var(--serif);font-size:30px;font-weight:600;line-height:1.3;margin-top:6px;color:var(--ink)}
+.q .main{font-size:22px;line-height:1.45}
+.sub{margin-top:8px;font-size:15px;line-height:1.5;color:var(--ink2)}
+.hint{margin-top:auto;font-size:13px;color:var(--mute)}
+.ans{margin-top:14px;font-size:16.5px;line-height:1.75;color:var(--ink);overflow:auto}
+.ans b{color:var(--c)}.q .ans{font-size:15px;line-height:1.7}
+.spec{font-size:12px;font-weight:700;color:#9A5B12;background:#FCEFD9;padding:2px 8px;border-radius:12px}
+.bot{margin-top:auto;padding-top:10px;display:flex;justify-content:space-between;align-items:center}
+.ok{font-size:14px;padding:5px 12px;border-radius:20px;background:#fff;border:1px solid var(--line)}
+.fc.done .ok{background:var(--ok);color:#fff}
+.fc.done .front::after{content:"✓ 已掌握";position:absolute;right:18px;bottom:16px;font-size:13px;font-weight:700;color:var(--ok)}
+.hide{display:none}
+/* 专注模式 */
+#focus{position:fixed;inset:0;z-index:50;background:rgba(233,236,241,.94);backdrop-filter:blur(8px);display:none;align-items:center;justify-content:center;flex-direction:column;gap:18px}
+#focus.on{display:flex}#focus .slot .fc{width:min(560px,90vw);height:min(640px,72vh)}
+#focus .slot .main{font-size:42px}#focus .slot .q .main{font-size:30px}#focus .slot .ans{font-size:21px}#focus .slot .q .ans{font-size:19px}
+#focus .slot .ic{width:110px;height:110px}
+#focus .nav{display:flex;gap:12px;align-items:center;font-size:15px;color:var(--ink2)}
+#focus .nav button{padding:8px 16px;border-radius:30px;background:#fff;border:1px solid var(--line)}
+.foot{margin-top:44px;font-size:14px;color:var(--mute);line-height:1.7}
+@media print{
+ .bar,#focus,.topbar,.hint,.ok{display:none!important}html,body{background:#fff}body::before{display:none}
+ .grid{grid-template-columns:1fr 1fr;gap:10px}.fc{height:auto;break-inside:avoid;perspective:none}
+ .fc .in{transform:none!important;display:grid;grid-template-columns:1fr 1.5fr}
+ .face{position:relative;transform:none;backface-visibility:visible;box-shadow:none;border:1px solid #ddd;backdrop-filter:none;min-height:200px}
+ .ic{width:44px;height:44px;margin:10px 0 4px}.main{font-size:20px}.q .main{font-size:15px}.ans{font-size:12px;overflow:visible}
+}
+</style></head><body><div class="wrap">
+<div class="topbar"><span class="dot"></span><a href="../index.html"><b style="font-family:var(--serif)">细胞周期从零学</b></a><span>· U00 思维卡片</span><span style="flex:1"></span><a href="../units/u00-map-v0.2.html">← 回到 U00 讲义</a></div>
+<h1>U00 总地图 · <em>36 张思维卡片</em></h1>
+<p class="intro">先看正面，在心里说出答案，再点卡片翻面核对。答对点“已掌握”，进度存在本机浏览器里。按 1、3、7、14 天间隔回来复习；“专注模式”一次只看一张（空格翻面，←/→ 换卡，K 标记掌握）。同一套内容的 Anki 导入版：<a href="u00-map-anki-v0.1.txt">u00-map-anki-v0.1.txt</a>。</p>
+<div class="bar"><button class="f on" data-f="all" style="--c:var(--ink);--l:#fff">全部<i>36</i></button><button class="f" data-f="01" style="--c:#1B5FA8;--l:#DCE8F6">01 周期引擎<i>8</i></button><button class="f" data-f="02" style="--c:#5B3F9E;--l:#ECE5F7">02 三个关口<i>4</i></button><button class="f" data-f="03" style="--c:#C2477A;--l:#FBE7EF">03 DNA 损伤应答<i>8</i></button><button class="f" data-f="04" style="--c:#B88A3B;--l:#F6EEDC">04 细胞命运<i>4</i></button><button class="f" data-f="05" style="--c:#2E9E7A;--l:#E1F3EC">05 有丝分裂<i>4</i></button><button class="f" data-f="06" style="--c:#D4793A;--l:#FBEADD">06 骨骼肌修复<i>4</i></button><button class="f" data-f="07" style="--c:#3A4357;--l:#E8EBF0">07 周日自测<i>4</i></button>
+<span class="sp"></span><span id="prog"></span>
+<button class="act" id="bTodo">只看未掌握</button><button class="act" id="bShuf">打乱</button><button class="act" id="bFlip">全部翻面</button><button class="act" id="bFocus">专注模式</button><button class="act" id="bReset">清空进度</button></div>
+<div class="grid" id="grid">
+<div class="fc" data-t="01" data-i="1" style="--c:#1B5FA8;--l:#DCE8F6" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">01 · 周期引擎</span><span class="num">#01</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="24" fill="none" stroke="#1B5FA8" stroke-width="5" stroke-dasharray="118 33" stroke-linecap="round"/><path d="M58 18l6 12-13 1z" fill="#1B5FA8"/><circle cx="40" cy="40" r="9" fill="#DCE8F6" stroke="#1B5FA8" stroke-width="3"/></svg></div>
+<div class="kind">术语</div><div class="main">CDK</div><div class="sub">Cyclin-Dependent Kinase</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">CDK</span></div>
+<div class="ans"><b>周期发动机</b>，本身无活性，需结合对应的 cyclin 才能开动（不同时期配不同 cyclin）。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="01" data-i="2" style="--c:#1B5FA8;--l:#DCE8F6" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">01 · 周期引擎</span><span class="num">#02</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="24" fill="none" stroke="#1B5FA8" stroke-width="5" stroke-dasharray="118 33" stroke-linecap="round"/><path d="M58 18l6 12-13 1z" fill="#1B5FA8"/><circle cx="40" cy="40" r="9" fill="#DCE8F6" stroke="#1B5FA8" stroke-width="3"/></svg></div>
+<div class="kind">术语</div><div class="main">cyclin</div><div class="sub">周期蛋白</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">cyclin</span></div>
+<div class="ans"><b>周期性合成与降解的 CDK 搭档</b>，像不同阶段的钥匙，决定 CDK 在何时启动。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="01" data-i="3" style="--c:#1B5FA8;--l:#DCE8F6" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">01 · 周期引擎</span><span class="num">#03</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="24" fill="none" stroke="#1B5FA8" stroke-width="5" stroke-dasharray="118 33" stroke-linecap="round"/><path d="M58 18l6 12-13 1z" fill="#1B5FA8"/><circle cx="40" cy="40" r="9" fill="#DCE8F6" stroke="#1B5FA8" stroke-width="3"/></svg></div>
+<div class="kind">术语</div><div class="main">APC/C</div><div class="sub">Anaphase-Promoting Complex/Cyclosome</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">APC/C</span></div>
+<div class="ans"><b>熄火装置</b>：给 cyclin 和 securin 等贴上泛素降解标签，送去蛋白酶体拆解。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="01" data-i="4" style="--c:#1B5FA8;--l:#DCE8F6" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">01 · 周期引擎</span><span class="num">#04</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="24" fill="none" stroke="#1B5FA8" stroke-width="5" stroke-dasharray="118 33" stroke-linecap="round"/><path d="M58 18l6 12-13 1z" fill="#1B5FA8"/><circle cx="40" cy="40" r="9" fill="#DCE8F6" stroke="#1B5FA8" stroke-width="3"/></svg></div>
+<div class="kind">术语</div><div class="main">MPF</div><div class="sub">Maturation-Promoting Factor</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">MPF</span></div>
+<div class="ans"><b>促成熟因子</b>，即 <b>CDK1–cyclin B</b> 复合物，驱动细胞从 G2 期进入 M 期。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="02" data-i="5" style="--c:#5B3F9E;--l:#ECE5F7" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">02 · 三个关口</span><span class="num">#05</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="12" y="20" width="10" height="44" rx="3" fill="#5B3F9E"/><rect x="58" y="20" width="10" height="44" rx="3" fill="#5B3F9E"/><rect x="22" y="34" width="36" height="7" rx="3.5" fill="#5B3F9E" opacity=".55"/><circle cx="40" cy="20" r="7" fill="none" stroke="#5B3F9E" stroke-width="3"/></svg></div>
+<div class="kind">术语</div><div class="main">限制点 R</div><div class="sub">Restriction Point</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">限制点 R</span></div>
+<div class="ans"><b>哺乳动物 G1 期的“不回头点”</b>（关口 1）：跨过之后不再依赖外界生长因子即可走完周期。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="02" data-i="6" style="--c:#5B3F9E;--l:#ECE5F7" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">02 · 三个关口</span><span class="num">#06</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="12" y="20" width="10" height="44" rx="3" fill="#5B3F9E"/><rect x="58" y="20" width="10" height="44" rx="3" fill="#5B3F9E"/><rect x="22" y="34" width="36" height="7" rx="3.5" fill="#5B3F9E" opacity=".55"/><circle cx="40" cy="20" r="7" fill="none" stroke="#5B3F9E" stroke-width="3"/></svg></div>
+<div class="kind">术语</div><div class="main">Start</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">Start</span></div>
+<div class="ans"><b>酵母细胞周期的 G1 承诺点</b>（相当于哺乳动物的限制点 R）。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="02" data-i="7" style="--c:#5B3F9E;--l:#ECE5F7" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">02 · 三个关口</span><span class="num">#07</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="12" y="20" width="10" height="44" rx="3" fill="#5B3F9E"/><rect x="58" y="20" width="10" height="44" rx="3" fill="#5B3F9E"/><rect x="22" y="34" width="36" height="7" rx="3.5" fill="#5B3F9E" opacity=".55"/><circle cx="40" cy="20" r="7" fill="none" stroke="#5B3F9E" stroke-width="3"/></svg></div>
+<div class="kind">术语</div><div class="main">检查点</div><div class="sub">Checkpoint</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">检查点</span></div>
+<div class="ans"><b>细胞周期的安检站</b>：前一步没完成或 DNA 有损伤，就不放行进入下一步（含 G1/S、G2/M、SAC）。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="02" data-i="8" style="--c:#5B3F9E;--l:#ECE5F7" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">02 · 三个关口</span><span class="num">#08</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="12" y="20" width="10" height="44" rx="3" fill="#5B3F9E"/><rect x="58" y="20" width="10" height="44" rx="3" fill="#5B3F9E"/><rect x="22" y="34" width="36" height="7" rx="3.5" fill="#5B3F9E" opacity=".55"/><circle cx="40" cy="20" r="7" fill="none" stroke="#5B3F9E" stroke-width="3"/></svg></div>
+<div class="kind">术语</div><div class="main">SAC</div><div class="sub">Spindle Assembly Checkpoint</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">SAC</span></div>
+<div class="ans"><b>纺锤体组装检查点</b>（关口 3）：确认每条染色体的动粒都挂好纺锤丝后，才放行进入后期分开姐妹染色单体。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="01" data-i="9" style="--c:#1B5FA8;--l:#DCE8F6" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">01 · 周期引擎</span><span class="num">#09</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="24" fill="none" stroke="#1B5FA8" stroke-width="5" stroke-dasharray="118 33" stroke-linecap="round"/><path d="M58 18l6 12-13 1z" fill="#1B5FA8"/><circle cx="40" cy="40" r="9" fill="#DCE8F6" stroke="#1B5FA8" stroke-width="3"/></svg></div>
+<div class="kind">术语</div><div class="main">Rb</div><div class="sub">Retinoblastoma protein</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">Rb</span></div>
+<div class="ans"><b>扣住 E2F 的刹车蛋白</b>；被 G1 期 CDK 磷酸化后松开 E2F，放行细胞跨过限制点 R。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="01" data-i="10" style="--c:#1B5FA8;--l:#DCE8F6" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">01 · 周期引擎</span><span class="num">#10</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="24" fill="none" stroke="#1B5FA8" stroke-width="5" stroke-dasharray="118 33" stroke-linecap="round"/><path d="M58 18l6 12-13 1z" fill="#1B5FA8"/><circle cx="40" cy="40" r="9" fill="#DCE8F6" stroke="#1B5FA8" stroke-width="3"/></svg></div>
+<div class="kind">术语</div><div class="main">E2F</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">E2F</span></div>
+<div class="ans"><b>启动 S 期基因转录的转录因子</b>；平时被 Rb 扣住，释放后驱动 DNA 复制相关基因表达。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="03" data-i="11" style="--c:#C2477A;--l:#FBE7EF" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">03 · DNA 损伤应答</span><span class="num">#11</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M22 10c22 12 14 24 0 30M58 10c-22 12-14 24 0 30" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round"/><path d="M22 52c22 6 14 14 0 20M58 52c-22 6-14 14 0 20" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round" opacity=".55"/><path d="M30 44l8-4 4 6 8-5" fill="none" stroke="#E0A32E" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+<div class="kind">术语</div><div class="main">p53</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">p53</span></div>
+<div class="ans"><b>DNA 损伤后的“总安全官”</b>：被 ATM/Chk2 等稳定后，一方面激活 p21 暂停周期，修不好则触发凋亡或衰老。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="03" data-i="12" style="--c:#C2477A;--l:#FBE7EF" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">03 · DNA 损伤应答</span><span class="num">#12</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M22 10c22 12 14 24 0 30M58 10c-22 12-14 24 0 30" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round"/><path d="M22 52c22 6 14 14 0 20M58 52c-22 6-14 14 0 20" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round" opacity=".55"/><path d="M30 44l8-4 4 6 8-5" fill="none" stroke="#E0A32E" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+<div class="kind">术语</div><div class="main">p21</div><div class="sub">Cdkn1a</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">p21</span></div>
+<div class="ans"><b>p53 下游的 CDK 抑制蛋白（刹车）</b>：一头连着 G1 检查点（暂停周期），一头连着细胞衰老（永久停滞）。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="04" data-i="13" style="--c:#B88A3B;--l:#F6EEDC" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">04 · 细胞命运</span><span class="num">#13</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="18" cy="40" r="8" fill="#B88A3B"/><path d="M26 40h12M38 40l20-20M38 40h22M38 40l20 20" stroke="#B88A3B" stroke-width="4" stroke-linecap="round" fill="none"/><circle cx="62" cy="18" r="5" fill="#B88A3B" opacity=".5"/><circle cx="64" cy="40" r="5" fill="#B88A3B" opacity=".75"/><circle cx="62" cy="62" r="5" fill="#B88A3B" opacity=".35"/></svg></div>
+<div class="kind">术语</div><div class="main">p16</div><div class="sub">Cdkn2a</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">p16</span></div>
+<div class="ans"><b>抑制 CDK4/6 的刹车蛋白</b>，常在永久停止分裂的衰老（senescence）细胞中持续升高。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="01" data-i="14" style="--c:#1B5FA8;--l:#DCE8F6" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">01 · 周期引擎</span><span class="num">#14</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="24" fill="none" stroke="#1B5FA8" stroke-width="5" stroke-dasharray="118 33" stroke-linecap="round"/><path d="M58 18l6 12-13 1z" fill="#1B5FA8"/><circle cx="40" cy="40" r="9" fill="#DCE8F6" stroke="#1B5FA8" stroke-width="3"/></svg></div>
+<div class="kind">术语</div><div class="main">Wee1</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">Wee1</span></div>
+<div class="ans"><b>给 CDK1 加上抑制性磷酸化的激酶</b>，在 G2/M 关口前按住 MPF 不让细胞过早分裂。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="01" data-i="15" style="--c:#1B5FA8;--l:#DCE8F6" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">01 · 周期引擎</span><span class="num">#15</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="24" fill="none" stroke="#1B5FA8" stroke-width="5" stroke-dasharray="118 33" stroke-linecap="round"/><path d="M58 18l6 12-13 1z" fill="#1B5FA8"/><circle cx="40" cy="40" r="9" fill="#DCE8F6" stroke="#1B5FA8" stroke-width="3"/></svg></div>
+<div class="kind">术语</div><div class="main">Cdc25</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">Cdc25</span></div>
+<div class="ans"><b>去掉 CDK1 抑制性磷酸化、启动 CDK1 的磷酸酶</b>；DNA 受损时 Cdc25 失活，细胞停在 G2 期。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="03" data-i="16" style="--c:#C2477A;--l:#FBE7EF" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">03 · DNA 损伤应答</span><span class="num">#16</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M22 10c22 12 14 24 0 30M58 10c-22 12-14 24 0 30" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round"/><path d="M22 52c22 6 14 14 0 20M58 52c-22 6-14 14 0 20" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round" opacity=".55"/><path d="M30 44l8-4 4 6 8-5" fill="none" stroke="#E0A32E" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+<div class="kind">术语</div><div class="main">ATM</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">ATM</span></div>
+<div class="ans"><b>DNA 双链断裂（DSB）的主警报激酶</b>，由 MRN 复合物招募激活，下游主要传给 Chk2 与 p53。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="03" data-i="17" style="--c:#C2477A;--l:#FBE7EF" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">03 · DNA 损伤应答</span><span class="num">#17</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M22 10c22 12 14 24 0 30M58 10c-22 12-14 24 0 30" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round"/><path d="M22 52c22 6 14 14 0 20M58 52c-22 6-14 14 0 20" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round" opacity=".55"/><path d="M30 44l8-4 4 6 8-5" fill="none" stroke="#E0A32E" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+<div class="kind">术语</div><div class="main">ATR</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">ATR</span></div>
+<div class="ans"><b>单链 DNA / 复制压力的主警报激酶</b>，感应 RPA 包裹的单链 DNA，下游主要传给 Chk1。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="03" data-i="18" style="--c:#C2477A;--l:#FBE7EF" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">03 · DNA 损伤应答</span><span class="num">#18</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M22 10c22 12 14 24 0 30M58 10c-22 12-14 24 0 30" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round"/><path d="M22 52c22 6 14 14 0 20M58 52c-22 6-14 14 0 20" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round" opacity=".55"/><path d="M30 44l8-4 4 6 8-5" fill="none" stroke="#E0A32E" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+<div class="kind">术语</div><div class="main">Chk1 / Chk2</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">Chk1 / Chk2</span></div>
+<div class="ans"><b>把损伤警报传给执行者的转导激酶</b>（ATM→Chk2，ATR→Chk1），下游使 p53 稳定或使 Cdc25 失活。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="03" data-i="19" style="--c:#C2477A;--l:#FBE7EF" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">03 · DNA 损伤应答</span><span class="num">#19</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M22 10c22 12 14 24 0 30M58 10c-22 12-14 24 0 30" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round"/><path d="M22 52c22 6 14 14 0 20M58 52c-22 6-14 14 0 20" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round" opacity=".55"/><path d="M30 44l8-4 4 6 8-5" fill="none" stroke="#E0A32E" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+<div class="kind">术语</div><div class="main">γH2AX</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">γH2AX</span></div>
+<div class="ans"><b>DNA 双链断裂处的磷酸化组蛋白标记</b>，是实验中定量检测双链断裂（DSB）最常用的分子路标。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="03" data-i="20" style="--c:#C2477A;--l:#FBE7EF" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">03 · DNA 损伤应答</span><span class="num">#20</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M22 10c22 12 14 24 0 30M58 10c-22 12-14 24 0 30" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round"/><path d="M22 52c22 6 14 14 0 20M58 52c-22 6-14 14 0 20" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round" opacity=".55"/><path d="M30 44l8-4 4 6 8-5" fill="none" stroke="#E0A32E" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+<div class="kind">术语</div><div class="main">HR</div><div class="sub">Homologous Recombination，同源重组</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">HR</span></div>
+<div class="ans"><b>双链断裂的精确修复通路</b>：照着姐妹染色单体模板无差错修补，因此<b>仅限 S/G2 期</b>可用。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="03" data-i="21" style="--c:#C2477A;--l:#FBE7EF" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">03 · DNA 损伤应答</span><span class="num">#21</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><path d="M22 10c22 12 14 24 0 30M58 10c-22 12-14 24 0 30" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round"/><path d="M22 52c22 6 14 14 0 20M58 52c-22 6-14 14 0 20" fill="none" stroke="#C2477A" stroke-width="4" stroke-linecap="round" opacity=".55"/><path d="M30 44l8-4 4 6 8-5" fill="none" stroke="#E0A32E" stroke-width="3.5" stroke-linecap="round"/></svg></div>
+<div class="kind">术语</div><div class="main">NHEJ</div><div class="sub">Non-Homologous End Joining，非同源末端连接</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">NHEJ</span></div>
+<div class="ans"><b>双链断裂的直接连接修复通路</b>：不需模板直接拼接，可能出错；全周期可用，是 <b>G0/G1 期的主力</b>。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="05" data-i="22" style="--c:#2E9E7A;--l:#E1F3EC" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">05 · 有丝分裂</span><span class="num">#22</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><ellipse cx="26" cy="40" rx="16" ry="20" fill="#E1F3EC" stroke="#2E9E7A" stroke-width="4"/><ellipse cx="54" cy="40" rx="16" ry="20" fill="#E1F3EC" stroke="#2E9E7A" stroke-width="4"/><path d="M22 34l6 12M30 34l-6 12M50 34l6 12M58 34l-6 12" stroke="#2E9E7A" stroke-width="3" stroke-linecap="round"/></svg></div>
+<div class="kind">术语</div><div class="main">cohesin</div><div class="sub">黏连蛋白</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">cohesin</span></div>
+<div class="ans"><b>把复制后的姐妹染色单体绑在一起的环形蛋白复合物</b>，直到后期才被剪开。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="05" data-i="23" style="--c:#2E9E7A;--l:#E1F3EC" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">05 · 有丝分裂</span><span class="num">#23</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><ellipse cx="26" cy="40" rx="16" ry="20" fill="#E1F3EC" stroke="#2E9E7A" stroke-width="4"/><ellipse cx="54" cy="40" rx="16" ry="20" fill="#E1F3EC" stroke="#2E9E7A" stroke-width="4"/><path d="M22 34l6 12M30 34l-6 12M50 34l6 12M58 34l-6 12" stroke="#2E9E7A" stroke-width="3" stroke-linecap="round"/></svg></div>
+<div class="kind">术语</div><div class="main">separase</div><div class="sub">分离酶</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">separase</span></div>
+<div class="ans"><b>在有丝分裂后期剪开 cohesin 的蛋白酶</b>，让姐妹染色单体得以平分到两极。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="05" data-i="24" style="--c:#2E9E7A;--l:#E1F3EC" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">05 · 有丝分裂</span><span class="num">#24</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><ellipse cx="26" cy="40" rx="16" ry="20" fill="#E1F3EC" stroke="#2E9E7A" stroke-width="4"/><ellipse cx="54" cy="40" rx="16" ry="20" fill="#E1F3EC" stroke="#2E9E7A" stroke-width="4"/><path d="M22 34l6 12M30 34l-6 12M50 34l6 12M58 34l-6 12" stroke="#2E9E7A" stroke-width="3" stroke-linecap="round"/></svg></div>
+<div class="kind">术语</div><div class="main">securin</div><div class="sub">安全蛋白</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">securin</span></div>
+<div class="ans"><b>separase 的抑制蛋白</b>：平时看住 separase，待 SAC 放行后被 APC/C 降解，释放 separase。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="05" data-i="25" style="--c:#2E9E7A;--l:#E1F3EC" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">05 · 有丝分裂</span><span class="num">#25</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><ellipse cx="26" cy="40" rx="16" ry="20" fill="#E1F3EC" stroke="#2E9E7A" stroke-width="4"/><ellipse cx="54" cy="40" rx="16" ry="20" fill="#E1F3EC" stroke="#2E9E7A" stroke-width="4"/><path d="M22 34l6 12M30 34l-6 12M50 34l6 12M58 34l-6 12" stroke="#2E9E7A" stroke-width="3" stroke-linecap="round"/></svg></div>
+<div class="kind">术语</div><div class="main">动粒</div><div class="sub">kinetochore</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">动粒</span></div>
+<div class="ans"><b>染色体着丝粒上挂接纺锤丝的蛋白复合体位置</b>，也是 SAC 监控是否挂好的传感位点。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="04" data-i="26" style="--c:#B88A3B;--l:#F6EEDC" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">04 · 细胞命运</span><span class="num">#26</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="18" cy="40" r="8" fill="#B88A3B"/><path d="M26 40h12M38 40l20-20M38 40h22M38 40l20 20" stroke="#B88A3B" stroke-width="4" stroke-linecap="round" fill="none"/><circle cx="62" cy="18" r="5" fill="#B88A3B" opacity=".5"/><circle cx="64" cy="40" r="5" fill="#B88A3B" opacity=".75"/><circle cx="62" cy="62" r="5" fill="#B88A3B" opacity=".35"/></svg></div>
+<div class="kind">术语</div><div class="main">G0</div><div class="sub">静息期</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">G0</span></div>
+<div class="ans"><b>可逆退出细胞周期的状态</b>（2C）；骨骼肌卫星细胞平时默认驻留在 G0，受损后可再被唤醒入周期。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="04" data-i="27" style="--c:#B88A3B;--l:#F6EEDC" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">04 · 细胞命运</span><span class="num">#27</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="18" cy="40" r="8" fill="#B88A3B"/><path d="M26 40h12M38 40l20-20M38 40h22M38 40l20 20" stroke="#B88A3B" stroke-width="4" stroke-linecap="round" fill="none"/><circle cx="62" cy="18" r="5" fill="#B88A3B" opacity=".5"/><circle cx="64" cy="40" r="5" fill="#B88A3B" opacity=".75"/><circle cx="62" cy="62" r="5" fill="#B88A3B" opacity=".35"/></svg></div>
+<div class="kind">术语</div><div class="main">衰老</div><div class="sub">senescence</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">衰老</span></div>
+<div class="ans"><b>永久停止分裂的状态</b>：常伴 p21/p16 升高，并通过 SASP 分泌炎症和促纤维化因子改变周围微环境。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="04" data-i="28" style="--c:#B88A3B;--l:#F6EEDC" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">04 · 细胞命运</span><span class="num">#28</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="18" cy="40" r="8" fill="#B88A3B"/><path d="M26 40h12M38 40l20-20M38 40h22M38 40l20 20" stroke="#B88A3B" stroke-width="4" stroke-linecap="round" fill="none"/><circle cx="62" cy="18" r="5" fill="#B88A3B" opacity=".5"/><circle cx="64" cy="40" r="5" fill="#B88A3B" opacity=".75"/><circle cx="62" cy="62" r="5" fill="#B88A3B" opacity=".35"/></svg></div>
+<div class="kind">术语</div><div class="main">SASP</div><div class="sub">Senescence-Associated Secretory Phenotype</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">SASP</span></div>
+<div class="ans"><b>衰老细胞的分泌表型</b>：向外分泌炎症和促纤维化因子，干扰干细胞并刺激 FAP 导致纤维化。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="06" data-i="29" style="--c:#D4793A;--l:#FBEADD" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">06 · 骨骼肌修复</span><span class="num">#29</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="8" y="22" width="64" height="10" rx="5" fill="#D4793A"/><rect x="8" y="36" width="64" height="10" rx="5" fill="#D4793A" opacity=".7"/><rect x="8" y="50" width="64" height="10" rx="5" fill="#D4793A" opacity=".45"/><circle cx="46" cy="33.5" r="5" fill="#fff" stroke="#D4793A" stroke-width="2.5"/></svg></div>
+<div class="kind">术语</div><div class="main">卫星细胞</div><div class="sub">MuSC, Muscle Satellite Cell</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">卫星细胞</span></div>
+<div class="ans"><b>骨骼肌干细胞（标志物 Pax7⁺）</b>：位于基膜与肌膜之间，平时处于 G0 静息，是成体肌纤维修复的主力。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc" data-t="06" data-i="30" style="--c:#D4793A;--l:#FBEADD" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">06 · 骨骼肌修复</span><span class="num">#30</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="8" y="22" width="64" height="10" rx="5" fill="#D4793A"/><rect x="8" y="36" width="64" height="10" rx="5" fill="#D4793A" opacity=".7"/><rect x="8" y="50" width="64" height="10" rx="5" fill="#D4793A" opacity=".45"/><circle cx="46" cy="33.5" r="5" fill="#fff" stroke="#D4793A" stroke-width="2.5"/></svg></div>
+<div class="kind">术语</div><div class="main">FAP</div><div class="sub">Fibro-Adipogenic Progenitor</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">FAP</span></div>
+<div class="ans"><b>骨骼肌内的纤维脂肪祖细胞</b>（可分裂的单个核细胞），在慢性炎症或 SASP 刺激下易驱动肌肉纤维化与脂肪浸润。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc q" data-t="06" data-i="31" style="--c:#D4793A;--l:#FBEADD" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">06 · 骨骼肌修复</span><span class="num">#31</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="8" y="22" width="64" height="10" rx="5" fill="#D4793A"/><rect x="8" y="36" width="64" height="10" rx="5" fill="#D4793A" opacity=".7"/><rect x="8" y="50" width="64" height="10" rx="5" fill="#D4793A" opacity=".45"/><circle cx="46" cy="33.5" r="5" fill="#fff" stroke="#D4793A" stroke-width="2.5"/></svg></div>
+<div class="kind">核心桥</div><div class="main">为什么 p21 是连接细胞周期与辐射肌肉损伤的“双刃剑”？</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">为什么 p21 是连接细胞周期与辐射肌肉损伤</span><span class="spec">含推测</span></div>
+<div class="ans">1. <b>机制</b>：p21 一头连着检查点（暂停周期修 DNA），一头连着衰老（永久停滞）。<br>2. <b>生理修复</b>：卫星细胞<b>先扩增</b>够数量，<b>后踩 p21 刹车</b>退出周期并分化融合（MyoD→MyoG→MyHC）。<br>3. <b>辐射损伤（推测）</b>：卫星细胞刚从 G0 唤醒、<b>尚未扩增就被 ATM→Chk2→p53→p21 拦死</b>；修不好则转入衰老并分泌 SASP，耗竭干细胞池、阻碍再生。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc q" data-t="06" data-i="32" style="--c:#D4793A;--l:#FBEADD" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">06 · 骨骼肌修复</span><span class="num">#32</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="8" y="22" width="64" height="10" rx="5" fill="#D4793A"/><rect x="8" y="36" width="64" height="10" rx="5" fill="#D4793A" opacity=".7"/><rect x="8" y="50" width="64" height="10" rx="5" fill="#D4793A" opacity=".45"/><circle cx="46" cy="33.5" r="5" fill="#fff" stroke="#D4793A" stroke-width="2.5"/></svg></div>
+<div class="kind">流程</div><div class="main">骨骼肌卫星细胞（MuSC）在损伤后的再生四步是什么？</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">骨骼肌卫星细胞（MuSC）在损伤后的再生四步</span></div>
+<div class="ans">1. <b>激活</b>：离开 G0 静息期进入 G1；<br>2. <b>增殖扩增</b>：走完完整的细胞周期（G1→S→G2→M）；<br>3. <b>分化与融合</b>：退出周期，修补或形成多核肌纤维；<br>4. <b>自我更新</b>：一部分子代细胞回到 G0，补充干细胞池。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc q" data-t="07" data-i="33" style="--c:#3A4357;--l:#E8EBF0" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">07 · 周日自测</span><span class="num">#33</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="26" fill="#E8EBF0" stroke="#3A4357" stroke-width="4"/><path d="M31 32a9 9 0 1 1 13 8c-3 2-4 3-4 7" fill="none" stroke="#3A4357" stroke-width="4.5" stroke-linecap="round"/><circle cx="40" cy="56" r="3" fill="#3A4357"/></svg></div>
+<div class="kind">自测 · 记忆</div><div class="main">G1、S、G2、M 各做什么？DNA 含量怎么变？</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">G1、S、G2、M 各做什么？DNA 含量怎</span></div>
+<div class="ans">• <b>G1 期</b>：生长准备（2C）<br>• <b>S 期</b>：复制 DNA（2C → 4C）<br>• <b>G2 期</b>：检查和准备分裂（4C）<br>• <b>M 期</b>：有丝分裂与胞质分裂（回到 2C）</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc q" data-t="07" data-i="34" style="--c:#3A4357;--l:#E8EBF0" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">07 · 周日自测</span><span class="num">#34</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="26" fill="#E8EBF0" stroke="#3A4357" stroke-width="4"/><path d="M31 32a9 9 0 1 1 13 8c-3 2-4 3-4 7" fill="none" stroke="#3A4357" stroke-width="4.5" stroke-linecap="round"/><circle cx="40" cy="56" r="3" fill="#3A4357"/></svg></div>
+<div class="kind">自测 · 理解</div><div class="main">为什么双链断裂的精确修复（HR）主要在 S/G2 期，而照射 G0 期卫星细胞多走 NHEJ？</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">为什么双链断裂的精确修复（HR）主要在 S/</span></div>
+<div class="ans"><b>HR 需要姐妹染色单体作为模板</b>，DNA 复制完成（进入 S/G2 期）后才有姐妹染色单体；而 G0/G1 期细胞（2C）没有姐妹染色单体，只能依赖直接拼接、容易留错的 <b>NHEJ</b>。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc q" data-t="07" data-i="35" style="--c:#3A4357;--l:#E8EBF0" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">07 · 周日自测</span><span class="num">#35</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="26" fill="#E8EBF0" stroke="#3A4357" stroke-width="4"/><path d="M31 32a9 9 0 1 1 13 8c-3 2-4 3-4 7" fill="none" stroke="#3A4357" stroke-width="4.5" stroke-linecap="round"/><circle cx="40" cy="56" r="3" fill="#3A4357"/></svg></div>
+<div class="kind">自测 · 应用</div><div class="main">敲掉 p53 的细胞受照射后，最可能失去哪个关口？后果是什么？</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">敲掉 p53 的细胞受照射后，最可能失去哪个</span></div>
+<div class="ans">最可能失去 <b>G1/S 关口停顿（p53 → p21 通路）</b>；细胞更容易带着未修好的 DNA 进入 S 期甚至硬闯 M 期，发生复制崩溃或有丝分裂灾难。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc q" data-t="07" data-i="36" style="--c:#3A4357;--l:#E8EBF0" tabindex="0">
+<div class="in"><div class="face front">
+<div class="top"><span class="chip">07 · 周日自测</span><span class="num">#36</span></div>
+<div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="26" fill="#E8EBF0" stroke="#3A4357" stroke-width="4"/><path d="M31 32a9 9 0 1 1 13 8c-3 2-4 3-4 7" fill="none" stroke="#3A4357" stroke-width="4.5" stroke-linecap="round"/><circle cx="40" cy="56" r="3" fill="#3A4357"/></svg></div>
+<div class="kind">自测 · 分析</div><div class="main">成体肌纤维已经不再分裂，为什么电离照射仍会严重损害肌肉再生？</div>
+<div class="hint">点击翻面 ↻</div></div>
+<div class="face back"><div class="top"><span class="chip">成体肌纤维已经不再分裂，为什么电离照射仍会严</span></div>
+<div class="ans">1. 肌肉再生依赖平时驻留在 G0 的<b>卫星细胞重新进入周期增殖扩增</b>，潜伏的 DNA 损伤在入周期时触发阻滞、衰老或死亡；<br>2. 肌肉内的 <b>FAP、内皮细胞、巨噬细胞</b>等单个核细胞受损或被衰老细胞的 <b>SASP</b> 改变微环境，共同导致修复失败与纤维化。</div>
+<div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div>
+</div>
+<p class="foot">卡片内容为个人学习笔记；“含推测”标签表示该卡有尚待文献证实的推断，与讲义中“事实 / 关联 / 推测”的标注一致。打印（⌘P）时自动排成正反面并排的两栏讲义。CC BY 4.0。</p>
+</div>
+<div id="focus"><div class="slot"></div><div class="nav"><button id="fPrev">← 上一张</button><span id="fIdx"></span><button id="fNext">下一张 →</button><button id="fClose">关闭 Esc</button></div></div>
+<script>
+(function(){
+const KEY='ccfz-u00-cards-done';let done=new Set(JSON.parse(localStorage.getItem(KEY)||'[]'));
+const grid=document.getElementById('grid'),all=[...grid.querySelectorAll('.fc')];
+let filt='all',todo=false;
+function save(){localStorage.setItem(KEY,JSON.stringify([...done]));}
+function paint(){all.forEach(c=>c.classList.toggle('done',done.has(c.dataset.i)));
+ all.forEach(c=>c.classList.toggle('hide',(filt!=='all'&&c.dataset.t!==filt)||(todo&&done.has(c.dataset.i))));
+ document.getElementById('prog').textContent='已掌握 '+done.size+' / '+all.length;}
+function vis(){return [...grid.querySelectorAll('.fc:not(.hide)')];}
+function toggleDone(c){const i=c.dataset.i;done.has(i)?done.delete(i):done.add(i);save();paint();}
+grid.addEventListener('click',e=>{const c=e.target.closest('.fc');if(!c)return;
+ if(e.target.closest('[data-act=ok]')){e.stopPropagation();toggleDone(c);return;}c.classList.toggle('flip');});
+grid.addEventListener('keydown',e=>{if(e.key===' '||e.key==='Enter'){e.preventDefault();e.target.closest('.fc')?.classList.toggle('flip');}});
+document.querySelectorAll('.bar .f').forEach(b=>b.onclick=()=>{document.querySelectorAll('.bar .f').forEach(x=>x.classList.remove('on'));b.classList.add('on');filt=b.dataset.f;paint();});
+bTodo.onclick=()=>{todo=!todo;bTodo.classList.toggle('on',todo);paint();};
+bShuf.onclick=()=>{const a=[...all];for(let i=a.length-1;i>0;i--){const j=Math.random()*(i+1)|0;[a[i],a[j]]=[a[j],a[i]];}a.forEach(c=>grid.appendChild(c));all.splice(0,all.length,...a);};
+bFlip.onclick=()=>{const v=vis();const any=v.some(c=>!c.classList.contains('flip'));v.forEach(c=>c.classList.toggle('flip',any));};
+bReset.onclick=()=>{if(confirm('清空本机的掌握进度？')){done.clear();save();paint();}};
+// 专注模式
+const F=document.getElementById('focus'),slot=F.querySelector('.slot');let fi=0,fl=[];
+function show(){slot.innerHTML='';if(!fl.length)return;const c=fl[fi].cloneNode(true);c.classList.remove('flip','hide');slot.appendChild(c);
+ c.onclick=e=>{if(e.target.closest('[data-act=ok]')){e.stopPropagation();toggleDone(fl[fi]);c.classList.toggle('done',done.has(c.dataset.i));return;}c.classList.toggle('flip');};
+ fIdx.textContent=(fi+1)+' / '+fl.length;}
+bFocus.onclick=()=>{fl=vis();fi=0;F.classList.add('on');show();};
+fPrev.onclick=()=>{fi=(fi-1+fl.length)%fl.length;show();};fNext.onclick=()=>{fi=(fi+1)%fl.length;show();};fClose.onclick=()=>F.classList.remove('on');
+document.addEventListener('keydown',e=>{if(!F.classList.contains('on'))return;const c=slot.querySelector('.fc');
+ if(e.key==='ArrowRight')fNext.onclick();else if(e.key==='ArrowLeft')fPrev.onclick();else if(e.key==='Escape')fClose.onclick();
+ else if(e.key===' '){e.preventDefault();c&&c.classList.toggle('flip');}else if(e.key.toLowerCase()==='k'&&c){toggleDone(fl[fi]);c.classList.toggle('done',done.has(c.dataset.i));}});
+paint();
+})();
+</script></body></html>
