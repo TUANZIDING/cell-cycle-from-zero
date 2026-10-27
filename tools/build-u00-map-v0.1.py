@@ -1,23 +1,23 @@
 exec(open('tools/shell-v0.1.py').read())
 def map_svg():
     boxes=[(40,'细胞周期','G1 → S → G2 → M，G0 静息','#1B5FA8'),(400,'DNA 损伤应答','感受 → 传递 → 执行','#5B3F9E'),(760,'细胞命运','修复恢复 / 衰老 / 凋亡 / 分裂灾难','#D9719C'),(1120,'组织修复：骨骼肌','卫星细胞、FAP、巨噬细胞','#2E9E7A')]
-    o=['<svg viewBox="0 0 1460 330" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans SC,PingFang SC,sans-serif"><defs><marker id="a" markerWidth="12" markerHeight="12" refX="8" refY="6" orient="auto"><path d="M0,0 L12,6 L0,12z" fill="#667085"/></marker></defs>']
+    o=['<svg viewBox="0 0 1460 370" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans SC,PingFang SC,sans-serif"><defs><marker id="a" markerUnits="userSpaceOnUse" markerWidth="16" markerHeight="16" refX="15" refY="8" orient="auto"><path d="M0,2 L15,8 L0,14z" fill="#667085"/></marker></defs>']
     for x,t,s,c in boxes:
         o.append(f'<rect x="{x}" y="120" width="300" height="140" rx="20" fill="#fff" stroke="{c}" stroke-width="4"/>')
         o.append(f'<text x="{x+150}" y="180" font-size="30" font-weight="700" fill="{c}" text-anchor="middle">{t}</text>')
         o.append(f'<text x="{x+150}" y="222" font-size="19" fill="#3A4357" text-anchor="middle">{s}</text>')
     for x in (340,700,1060):
-        o.append(f'<line x1="{x+4}" y1="190" x2="{x+54}" y2="190" stroke="#667085" stroke-width="4" marker-end="url(#a)"/>')
+        o.append(f'<line x1="{x+4}" y1="190" x2="{x+52}" y2="190" stroke="#667085" stroke-width="4" marker-end="url(#a)"/>')
     o.append('<path d="M550,30 L550,112" stroke="#D4793A" stroke-width="5" stroke-dasharray="10 7" marker-end="url(#a)"/>')
     o.append('<text x="565" y="58" font-size="22" fill="#D4793A" font-weight="700">电离辐射 → DNA 双链断裂</text>')
     o.append('<path d="M550,262 q0,55 -360,55 q-0,0 -0,-50" stroke="#5B3F9E" stroke-width="3" fill="none" marker-end="url(#a)"/>')
-    o.append('<text x="380" y="308" font-size="18" fill="#5B3F9E">检查点让周期停下（p53→p21、Chk1/Chk2）</text>')
+    o.append('<text x="380" y="352" font-size="18" fill="#5B3F9E">检查点让周期停下（p53→p21、Chk1/Chk2）</text>')
     o.append('</svg>');return ''.join(o)
 def phase_svg():
     import math
     segs=[(0,0.40,'G1','#1B5FA8'),(0.40,0.72,'S','#3F8BD6'),(0.72,0.90,'G2','#5B3F9E'),(0.90,1.0,'M','#D9719C')]
-    o=['<svg viewBox="0 0 620 520" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans SC,PingFang SC,sans-serif">']
-    cx,cy,r=280,260,170
+    o=['<svg viewBox="0 0 740 520" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans SC,PingFang SC,sans-serif">']
+    cx,cy,r=330,260,170
     for a,b,t,c in segs:
         a1=math.radians(-90+360*a);a2=math.radians(-90+360*b)
         x1,y1=cx+r*math.cos(a1),cy+r*math.sin(a1);x2,y2=cx+r*math.cos(a2),cy+r*math.sin(a2)
@@ -28,10 +28,10 @@ def phase_svg():
     o.append(f'<text x="{cx}" y="{cy+24}" font-size="21" fill="#3A4357" text-anchor="middle">G1 2C → S 复制 → G2 4C</text>')
     o.append(f'<text x="{cx}" y="{cy+52}" font-size="21" fill="#3A4357" text-anchor="middle">M 后回到 2C</text>')
     # G0 branch from G1
-    o.append('<path d="M150,140 q-70,-60 -110,-40" stroke="#2E9E7A" stroke-width="4" fill="none" stroke-dasharray="8 6"/>')
-    o.append('<circle cx="60" cy="70" r="44" fill="#E3F4EC" stroke="#2E9E7A" stroke-width="3"/><text x="60" y="80" font-size="26" fill="#1E6E52" text-anchor="middle" font-weight="700">G0</text>')
-    o.append('<text x="10" y="150" font-size="17" fill="#1E6E52">静息：卫星细胞</text>')
-    for ang,t in ((0.40,'关口 1：限制点/G1-S'),(0.90,'关口 2：G2/M'),(0.96,'关口 3：纺锤体')):
+    o.append('<path d="M452,130 q70,-40 140,-35" stroke="#2E9E7A" stroke-width="4" fill="none" stroke-dasharray="8 6"/>')
+    o.append('<circle cx="650" cy="90" r="44" fill="#E3F4EC" stroke="#2E9E7A" stroke-width="3"/><text x="650" y="100" font-size="26" fill="#1E6E52" text-anchor="middle" font-weight="700">G0</text>')
+    o.append('<text x="650" y="160" font-size="17" fill="#1E6E52" text-anchor="middle">静息：卫星细胞</text>')
+    for ang,t in ((0.40,'关口 1：限制点/G1-S'),(0.90,'关口 2：G2/M'),(0.995,'关口 3：纺锤体')):
         m=math.radians(-90+360*ang);x,y=cx+(r+34)*math.cos(m),cy+(r+34)*math.sin(m)
         o.append(f'<circle cx="{cx+r*math.cos(m):.0f}" cy="{cy+r*math.sin(m):.0f}" r="10" fill="#fff" stroke="#D4793A" stroke-width="4"/>')
         anchor='start' if x>cx else 'end'
