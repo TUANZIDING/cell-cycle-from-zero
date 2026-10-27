@@ -10,9 +10,10 @@
 
 ```
 index.html                 总览首页
-assets/                    共用样式与翻页脚本（deck-v0.1.css / deck-v0.1.js）
+assets/                    共用样式与翻页脚本（deck-v0.2.css / deck-v0.2.js）
 units/                     学习单元（u00 总地图 …）
 papers/                    经典文献拆解（p01 Hartwell 1970 …）
+figures/                   AI 生成插图（无文字，标注在网页上叠加）
 docs/                      资源清单、术语表、学习计划、版权约定
 tools/                     生成单元页面的 Python 脚本
 ```
@@ -24,5 +25,5 @@ tools/                     生成单元页面的 Python 脚本
 ## 版权与许可
 
 - 笔记与自绘图：CC BY 4.0；代码：MIT（见 `LICENSE`）
-- 不收录出版社 PDF、论文原图、教材截图；示意图注明“自绘”或“据某文献 Fig.N 重绘示意，非原图”
+- 不收录出版社 PDF、论文原图、教材截图；示意图注明“自绘”或“AI 生成”；不复制原文图
 - 详见 `docs/copyright-policy-v0.1.md`
