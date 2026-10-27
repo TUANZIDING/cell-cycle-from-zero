@@ -184,7 +184,7 @@ P.append(('出处与延伸','出处','''<div class="hd"><div class="kick"><span 
 <li>Alberts《Molecular Biology of the Cell》第 4 版第 17 章：<a href="https://www.ncbi.nlm.nih.gov/books/NBK21056/">NCBI Bookshelf</a></li>
 <li>Morgan《The Cell Cycle: Principles of Control》2007：<a href="https://morganlab.ucsf.edu/cell-cycle-principles-control">作者实验室页面</a></li>
 <li>2001 年诺贝尔奖：<a href="https://www.nobelprize.org/prizes/medicine/2001/summary/">nobelprize.org</a></li></ul></div>
-<div class="card box" data-b="2"><h3>本库约定</h3><ul><li>示意图为自绘或 AI 生成，已注明；不收录原文图</li><li>“事实 / 关联 / 推测”分开标注</li><li>文献信息均经 PubMed 核对</li><li>下一单元：U01 细胞周期总览（第 2 周）</li></ul></div></div>'''))
+<div class="card box" data-b="2"><h3>本库约定</h3><ul><li>示意图为自绘或 AI 生成，已注明；不收录原文图</li><li>“事实 / 关联 / 推测”分开标注</li><li>文献信息均经 PubMed 核对</li><li>下一单元：U01 细胞周期总览（第 2 周）</li><li>延伸：<a href="x01-radiation-targets-v0.2.html">补充单元 X01 · 辐射到底打中了什么</a></li></ul></div></div>'''))
 secs='\n'.join(f'<section class="page" id="p{i+1}" data-title="{t}" data-mag="{m}">\n{b}\n</section>' for i,(t,m,b) in enumerate(P))
 open('units/u00-map-v0.2.html','w').write(wrap('单元 00 · 总地图 · 细胞周期从零学','单元 00 · 总地图',secs))
 for i,s in enumerate([map_svg(),wheel_svg(),fate_svg()]): open(f'/workspace/work/uv2-{i}.svg','w').write(s.replace('font-family="Noto Sans SC,PingFang SC,sans-serif"','font-family="WenQuanYi Zen Hei"'))
