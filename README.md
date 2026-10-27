@@ -13,6 +13,7 @@ index.html                 总览首页
 assets/                    共用样式与翻页脚本（deck-v0.2.css / deck-v0.2.js）
 units/                     学习单元（u00 总地图 …）
 papers/                    经典文献拆解（p01 Hartwell 1970 …）
+cards/                     Anki 卡组（制表符分隔，可直接导入）
 figures/                   AI 生成插图（无文字，标注在网页上叠加）
 docs/                      资源清单、术语表、学习计划、版权约定
 tools/                     生成单元页面的 Python 脚本
@@ -27,3 +28,8 @@ tools/                     生成单元页面的 Python 脚本
 - 笔记与自绘图：CC BY 4.0；代码：MIT（见 `LICENSE`）
 - 不收录出版社 PDF、论文原图、教材截图；示意图注明“自绘”或“AI 生成”；不复制原文图
 - 详见 `docs/copyright-policy-v0.1.md`
+
+
+## Anki 卡组
+
+`cards/u00-map-anki-v0.1.txt`：单元 00 的 30 个核心术语 + 5 道问答卡。Anki 桌面版“文件 → 导入”选择该文件即可，分隔符、HTML 与标签列（第 3 列）已在文件头声明。
