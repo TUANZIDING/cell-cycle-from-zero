@@ -6,7 +6,7 @@ def pm(pmid,txt=None): return f'<a href="https://pubmed.ncbi.nlm.nih.gov/{pmid}/
 
 def targets_svg():
     p='tg'
-    o=[f'<svg viewBox="0 0 1660 470" width="100%" {F}>',defs(p)]
+    o=[f'<svg viewBox="0 0 1660 470" width="100%" style="display:block;max-height:380px;margin:0 auto" {F}>',defs(p)]
     # 细胞
     cx,cy=330,240
     o.append(f'<ellipse cx="{cx}" cy="{cy}" rx="250" ry="200" fill="url(#{p}cell)" stroke="{EO}" stroke-width="5" stroke-dasharray="14 8" filter="url(#{p}sh)"/>')
@@ -92,7 +92,7 @@ def death_svg():
     # 分支
     o.append(f'<path d="M480,162 C480,250 560,290 640,290" stroke="{WARN}" stroke-width="3.5" fill="none" marker-end="url(#{p}arg)"/>')
     o.append(f'<rect x="646" y="254" width="420" height="72" rx="36" fill="#FFF1DD" stroke="{WARN}" stroke-width="2"/><text x="676" y="298" font-size="22" font-weight="700" fill="#9A5A16">持续 p53 → p21：衰老</text>')
-    o.append(f'<path d="M420,162 C420,300 300,320 200,320" stroke="{HE}" stroke-width="3.5" fill="none" marker-end="url(#{p}arg)"/>')
+    o.append(f'<path d="M420,162 C420,300 330,320 250,320" stroke="{HE}" stroke-width="3.5" fill="none" marker-end="url(#{p}arg)"/>')
     o.append(f'<text x="30" y="300" font-size="22" font-weight="700" fill="{HE}">凋亡</text><text x="30" y="330" font-size="17" fill="{INK2}">淋巴细胞等：数小时内</text>')
     o.append(f'<text x="1640" y="300" font-size="18" fill="{MUTE}" text-anchor="end">多数增殖中的实体细胞走这条路</text><path d="M1470,280 L1470,168" stroke="{MUTE}" stroke-width="2" stroke-dasharray="4 5"/>')
     o.append('</svg>');return ''.join(o)
@@ -106,7 +106,7 @@ P.append(('封面','封面',f'''<div class="cover-ttl"><div class="k">补充单�
 <div class="cover-eye"><img src="{FIG}x01-cover-v0.1.jpg" alt="射线穿过细胞、打断 DNA"><span class="lab">AI 生成示意图 · 射线穿过细胞</span></div>'''))
 P.append(('一句话结论','结论',f'''<div class="hd"><div class="kick"><span class="no">01</span>先说结论</div><h2 class="t">“会不会死、还能不能分裂”主要看 DNA；“功能怎么变”还要看膜、线粒体和邻居</h2></div>
 <div class="card box" data-b="1" style="padding:22px 26px">{targets_svg()}<p class="cap">示意图，自绘；右侧色条是本笔记对证据强度的主观评级，不是定量数据。</p></div>
-<div class="g3" style="gap:20px;margin-top:20px">
+<div class="g3" style="gap:20px;margin-top:12px">
 <div class="pt bl" data-b="2"><h4>事实</h4><p>细胞致死（克隆源性死亡）的主靶是核 DNA，双链断裂最关键。</p></div>
 <div class="pt eo" data-b="2"><h4 style="color:#B04679">事实</h4><p>非 DNA 靶点也确实存在：膜神经酰胺、胞质照射致突变、旁观者效应。</p></div>
 <div class="pt wn" data-b="3"><h4 style="color:#9A5A16">推测</h4><p>不分裂的肌纤维，损伤可能更多来自非 DNA 和组织层面的通路。</p></div></div>'''))
