@@ -17,8 +17,9 @@ h1{font-family:var(--serif);font-size:46px;margin:28px 0 8px}h1 em{font-style:no
 .bar .f{border-left:5px solid var(--c)}.bar .f i{font-style:normal;margin-left:6px;color:var(--mute);font-size:13px}
 .bar .f.on{background:var(--l);color:var(--c);font-weight:700}
 .bar .sp{flex:1}.bar .act.on{background:var(--ink);color:#fff}
-#prog{font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums}
+#prog{white-space:nowrap;font-size:14px;color:var(--mute);font-variant-numeric:tabular-nums}
 .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:22px}
+.fc.q{grid-column:span 2;height:400px}
 .fc{height:360px;perspective:1400px;cursor:pointer;outline:none}
 .fc .in{position:relative;width:100%;height:100%;transition:transform .7s cubic-bezier(.2,.8,.2,1);transform-style:preserve-3d}
 .fc.flip .in{transform:rotateY(180deg)}
@@ -36,10 +37,10 @@ background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--glassb
 .q .main{font-size:22px;line-height:1.45}
 .sub{margin-top:8px;font-size:15px;line-height:1.5;color:var(--ink2)}
 .hint{margin-top:auto;font-size:13px;color:var(--mute)}
-.ans{margin-top:14px;font-size:16.5px;line-height:1.75;color:var(--ink);overflow:auto}
+.ans{flex:1 1 auto;min-height:0;margin-top:14px;font-size:16.5px;line-height:1.75;color:var(--ink);overflow:auto}
 .ans b{color:var(--c)}.q .ans{font-size:15px;line-height:1.7}
 .spec{font-size:12px;font-weight:700;color:#9A5B12;background:#FCEFD9;padding:2px 8px;border-radius:12px}
-.bot{margin-top:auto;padding-top:10px;display:flex;justify-content:space-between;align-items:center}
+.bot{flex-shrink:0;margin-top:auto;padding-top:10px;display:flex;justify-content:space-between;align-items:center}
 .ok{font-size:14px;padding:5px 12px;border-radius:20px;background:#fff;border:1px solid var(--line)}
 .fc.done .ok{background:var(--ok);color:#fff}
 .fc.done .front::after{content:"✓ 已掌握";position:absolute;right:18px;bottom:16px;font-size:13px;font-weight:700;color:var(--ok)}
@@ -52,7 +53,9 @@ background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--glassb
 #focus .nav{display:flex;gap:12px;align-items:center;font-size:15px;color:var(--ink2)}
 #focus .nav button{padding:8px 16px;border-radius:30px;background:#fff;border:1px solid var(--line)}
 .foot{margin-top:44px;font-size:14px;color:var(--mute);line-height:1.7}
+@media(max-width:680px){.fc.q{grid-column:auto;height:460px}}
 @media print{
+ .fc.q{grid-column:auto}
  .bar,#focus,.topbar,.hint,.ok{display:none!important}html,body{background:#fff}body::before{display:none}
  .grid{grid-template-columns:1fr 1fr;gap:10px}.fc{height:auto;break-inside:avoid;perspective:none}
  .fc .in{transform:none!important;display:grid;grid-template-columns:1fr 1.5fr}
@@ -313,7 +316,7 @@ background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--glassb
 <div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="8" y="22" width="64" height="10" rx="5" fill="#D4793A"/><rect x="8" y="36" width="64" height="10" rx="5" fill="#D4793A" opacity=".7"/><rect x="8" y="50" width="64" height="10" rx="5" fill="#D4793A" opacity=".45"/><circle cx="46" cy="33.5" r="5" fill="#fff" stroke="#D4793A" stroke-width="2.5"/></svg></div>
 <div class="kind">核心桥</div><div class="main">为什么 p21 是连接细胞周期与辐射肌肉损伤的“双刃剑”？</div>
 <div class="hint">点击翻面 ↻</div></div>
-<div class="face back"><div class="top"><span class="chip">为什么 p21 是连接细胞周期与辐射肌肉损伤</span><span class="spec">含推测</span></div>
+<div class="face back"><div class="top"><span class="chip">核心桥</span><span class="spec">含推测</span></div>
 <div class="ans">1. <b>机制</b>：p21 一头连着检查点（暂停周期修 DNA），一头连着衰老（永久停滞）。<br>2. <b>生理修复</b>：卫星细胞<b>先扩增</b>够数量，<b>后踩 p21 刹车</b>退出周期并分化融合（MyoD→MyoG→MyHC）。<br>3. <b>辐射损伤（推测）</b>：卫星细胞刚从 G0 唤醒、<b>尚未扩增就被 ATM→Chk2→p53→p21 拦死</b>；修不好则转入衰老并分泌 SASP，耗竭干细胞池、阻碍再生。</div>
 <div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc q" data-t="06" data-i="32" style="--c:#D4793A;--l:#FBEADD" tabindex="0">
 <div class="in"><div class="face front">
@@ -321,7 +324,7 @@ background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--glassb
 <div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><rect x="8" y="22" width="64" height="10" rx="5" fill="#D4793A"/><rect x="8" y="36" width="64" height="10" rx="5" fill="#D4793A" opacity=".7"/><rect x="8" y="50" width="64" height="10" rx="5" fill="#D4793A" opacity=".45"/><circle cx="46" cy="33.5" r="5" fill="#fff" stroke="#D4793A" stroke-width="2.5"/></svg></div>
 <div class="kind">流程</div><div class="main">骨骼肌卫星细胞（MuSC）在损伤后的再生四步是什么？</div>
 <div class="hint">点击翻面 ↻</div></div>
-<div class="face back"><div class="top"><span class="chip">骨骼肌卫星细胞（MuSC）在损伤后的再生四步</span></div>
+<div class="face back"><div class="top"><span class="chip">流程</span></div>
 <div class="ans">1. <b>激活</b>：离开 G0 静息期进入 G1；<br>2. <b>增殖扩增</b>：走完完整的细胞周期（G1→S→G2→M）；<br>3. <b>分化与融合</b>：退出周期，修补或形成多核肌纤维；<br>4. <b>自我更新</b>：一部分子代细胞回到 G0，补充干细胞池。</div>
 <div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc q" data-t="07" data-i="33" style="--c:#3A4357;--l:#E8EBF0" tabindex="0">
 <div class="in"><div class="face front">
@@ -329,7 +332,7 @@ background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--glassb
 <div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="26" fill="#E8EBF0" stroke="#3A4357" stroke-width="4"/><path d="M31 32a9 9 0 1 1 13 8c-3 2-4 3-4 7" fill="none" stroke="#3A4357" stroke-width="4.5" stroke-linecap="round"/><circle cx="40" cy="56" r="3" fill="#3A4357"/></svg></div>
 <div class="kind">自测 · 记忆</div><div class="main">G1、S、G2、M 各做什么？DNA 含量怎么变？</div>
 <div class="hint">点击翻面 ↻</div></div>
-<div class="face back"><div class="top"><span class="chip">G1、S、G2、M 各做什么？DNA 含量怎</span></div>
+<div class="face back"><div class="top"><span class="chip">自测 · 记忆</span></div>
 <div class="ans">• <b>G1 期</b>：生长准备（2C）<br>• <b>S 期</b>：复制 DNA（2C → 4C）<br>• <b>G2 期</b>：检查和准备分裂（4C）<br>• <b>M 期</b>：有丝分裂与胞质分裂（回到 2C）</div>
 <div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc q" data-t="07" data-i="34" style="--c:#3A4357;--l:#E8EBF0" tabindex="0">
 <div class="in"><div class="face front">
@@ -337,7 +340,7 @@ background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--glassb
 <div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="26" fill="#E8EBF0" stroke="#3A4357" stroke-width="4"/><path d="M31 32a9 9 0 1 1 13 8c-3 2-4 3-4 7" fill="none" stroke="#3A4357" stroke-width="4.5" stroke-linecap="round"/><circle cx="40" cy="56" r="3" fill="#3A4357"/></svg></div>
 <div class="kind">自测 · 理解</div><div class="main">为什么双链断裂的精确修复（HR）主要在 S/G2 期，而照射 G0 期卫星细胞多走 NHEJ？</div>
 <div class="hint">点击翻面 ↻</div></div>
-<div class="face back"><div class="top"><span class="chip">为什么双链断裂的精确修复（HR）主要在 S/</span></div>
+<div class="face back"><div class="top"><span class="chip">自测 · 理解</span></div>
 <div class="ans"><b>HR 需要姐妹染色单体作为模板</b>，DNA 复制完成（进入 S/G2 期）后才有姐妹染色单体；而 G0/G1 期细胞（2C）没有姐妹染色单体，只能依赖直接拼接、容易留错的 <b>NHEJ</b>。</div>
 <div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc q" data-t="07" data-i="35" style="--c:#3A4357;--l:#E8EBF0" tabindex="0">
 <div class="in"><div class="face front">
@@ -345,7 +348,7 @@ background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--glassb
 <div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="26" fill="#E8EBF0" stroke="#3A4357" stroke-width="4"/><path d="M31 32a9 9 0 1 1 13 8c-3 2-4 3-4 7" fill="none" stroke="#3A4357" stroke-width="4.5" stroke-linecap="round"/><circle cx="40" cy="56" r="3" fill="#3A4357"/></svg></div>
 <div class="kind">自测 · 应用</div><div class="main">敲掉 p53 的细胞受照射后，最可能失去哪个关口？后果是什么？</div>
 <div class="hint">点击翻面 ↻</div></div>
-<div class="face back"><div class="top"><span class="chip">敲掉 p53 的细胞受照射后，最可能失去哪个</span></div>
+<div class="face back"><div class="top"><span class="chip">自测 · 应用</span></div>
 <div class="ans">最可能失去 <b>G1/S 关口停顿（p53 → p21 通路）</b>；细胞更容易带着未修好的 DNA 进入 S 期甚至硬闯 M 期，发生复制崩溃或有丝分裂灾难。</div>
 <div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div><div class="fc q" data-t="07" data-i="36" style="--c:#3A4357;--l:#E8EBF0" tabindex="0">
 <div class="in"><div class="face front">
@@ -353,7 +356,7 @@ background:var(--glass);backdrop-filter:blur(18px);border:1px solid var(--glassb
 <div class="ic"><svg viewBox="0 0 80 80" aria-hidden="true"><circle cx="40" cy="40" r="26" fill="#E8EBF0" stroke="#3A4357" stroke-width="4"/><path d="M31 32a9 9 0 1 1 13 8c-3 2-4 3-4 7" fill="none" stroke="#3A4357" stroke-width="4.5" stroke-linecap="round"/><circle cx="40" cy="56" r="3" fill="#3A4357"/></svg></div>
 <div class="kind">自测 · 分析</div><div class="main">成体肌纤维已经不再分裂，为什么电离照射仍会严重损害肌肉再生？</div>
 <div class="hint">点击翻面 ↻</div></div>
-<div class="face back"><div class="top"><span class="chip">成体肌纤维已经不再分裂，为什么电离照射仍会严</span></div>
+<div class="face back"><div class="top"><span class="chip">自测 · 分析</span></div>
 <div class="ans">1. 肌肉再生依赖平时驻留在 G0 的<b>卫星细胞重新进入周期增殖扩增</b>，潜伏的 DNA 损伤在入周期时触发阻滞、衰老或死亡；<br>2. 肌肉内的 <b>FAP、内皮细胞、巨噬细胞</b>等单个核细胞受损或被衰老细胞的 <b>SASP</b> 改变微环境，共同导致修复失败与纤维化。</div>
 <div class="bot"><button class="ok" data-act="ok">✓ 已掌握</button><span class="hint">再点翻回</span></div></div></div></div>
 </div>
